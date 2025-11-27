@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Top 20 Student Leaderboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * { box-sizing:border-box; font-family: Arial, sans-serif; }
+    body { margin:0; background:#000814; color:#f0c808; }
+
+    header {
+      background:#001f3f;
+      padding:12px 15px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    main {
+      padding:15px;
+      max-width:900px;
+      margin:auto;
+    }
+
+    .card {
+      background:#111;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:20px;
+      box-shadow:0 0 12px #f0c80844;
+    }
+
+    h2 { text-align:center; margin-top:0; }
+
+    table {
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:14px;
+    }
+
+    th, td {
+      border:1px solid #f0c808;
+      padding:8px;
+      text-align:center;
+    }
+
+    th { background:#001f3f; }
+
+    .rank1 { background:#ffd70055; }
+    .rank2 { background:#c0c0c055; }
+    .rank3 { background:#cd7f3255; }
+
+    button {
+      width:100%;
+      margin-top:10px;
+      padding:10px;
+      border-radius:6px;
+      border:none;
+      background:#f0c808;
+      color:#001f3f;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    @media(max-width:600px){
+      table { font-size:12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1 style="margin:0;font-size:1.2em;">🏆 Student Leaderboard</h1>
+  <button onclick="goBack()" style="background:none;border:none;color:#f0c808;font-size:16px;">⬅ Back</button>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Top 20 Students</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Name</th>
+          <th>Average</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardBody"></tbody>
+    </table>
+  </section>
+
+  <button onclick="clearLeaderboard()">🗑️ Clear Leaderboard</button>
+
+</main>
+
+<script>
+  let students = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+  function displayLeaderboard() {
+    const tbody = document.getElementById("leaderboardBody");
+    tbody.innerHTML = "";
+
+    if (students.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="3">No students yet</td>
+        </tr>
+      `;
+      return;
+    }
+
+    students.forEach((s, index) => {
+      const row = document.createElement("tr");
+
+      if (index === 0) row.classList.add("rank1");
+      if (index === 1) row.classList.add("rank2");
+      if (index === 2) row.classList.add("rank3");
+
+      row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${s.name}</td>
+        <td>${s.avg}</td>
+      `;
+
+      tbody.appendChild(row);
+    });
+  }
+
+  function clearLeaderboard() {
+    if (confirm("Clear all leaderboard data?")) {
+      localStorage.removeItem("leaderboard");
+      students = [];
+      displayLeaderboard();
+    }
+  }
+
+  function goBack() {
+    window.location.href = "index.html";
+  }
+
+  displayLeaderboard();
+</script>
+
+</body>
+</html>
