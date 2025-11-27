@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart School Result Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ YOUR GOLD + DEEP BLUE THEME -->
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { margin:0; background:#000814; color:#f0c808; }
+    header { background:#001f3f; padding:15px; text-align:center; font-size:1.3em; }
+    main { padding:15px; max-width:900px; margin:auto; }
+    .card { background:#111; padding:15px; border-radius:10px; margin-bottom:20px; box-shadow:0 0 12px #f0c80844; }
+    h2,h3 { margin-top:0; }
+    input { width:100%; padding:10px; margin:6px 0; border-radius:6px; border:none; background:#222; color:#f0c808; }
+    table { width:100%; border-collapse: collapse; margin-top:10px; font-size:14px; }
+    th,td { border:1px solid #f0c808; padding:6px; text-align:center; }
+    th { background:#001f3f; }
+    button { margin-top:10px; padding:10px 14px; border-radius:6px; border:none; font-weight:bold; cursor:pointer; background:#333; color:#f0c808; }
+    .primaryBtn { background:#f0c808; color:#001f3f; }
+    @media(max-width:600px){ table{ font-size:12px; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>📘 Smart School Result Calculator</h1>
+</header>
+
+<main>
+  <!-- STUDENT INFORMATION -->
+  <section class="card">
+    <h2>Student Information</h2>
+    <input type="text" id="studentName" placeholder="Student Name">
+    <input type="text" id="studentClass" placeholder="Class">
+    <input type="text" id="studentTerm" placeholder="Term (e.g 1st Term)">
+
+    <h3>Subjects & Scores</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>CA (20)</th>
+          <th>Test (30)</th>
+          <th>Exam (50)</th>
+          <th>Total</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody id="subjectTable"></tbody>
+    </table>
+
+    <button onclick="addSubject()">+ Add Subject</button>
+    <button class="primaryBtn" onclick="calculateResult()">Calculate Result</button>
+  </section>
+
+  <!-- RESULT SUMMARY -->
+  <section class="card" id="resultSection" style="display:none;">
+    <h2>Result Summary</h2>
+    <p><b>Average:</b> <span id="average"></span></p>
+    <p><b>Overall Grade:</b> <span id="overallGrade"></span></p>
+  </section>
+</main>
+
+<!-- ✅ ALL JAVASCRIPT HERE -->
+<script>
+  function addSubject() {
+    const tbody = document.getElementById("subjectTable");
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><input type="text" placeholder="Subject"></td>
+      <td><input type="number" min="0" max="20"></td>
+      <td><input type="number" min="0" max="30"></td>
+      <td><input type="number" min="0" max="50"></td>
+      <td class="total"></td>
+      <td class="grade"></td>
+    `;
+    tbody.appendChild(row);
+  }
+
+  function calculateResult() {
+    const rows = document.querySelectorAll("#subjectTable tr");
+    if (rows.length === 0) {
+      alert("Add at least one subject!");
+      return;
+    }
+
+    let totalScore = 0;
+
+    rows.forEach(r => {
+      const inputs = r.querySelectorAll("input");
+      const ca = Number(inputs[1].value || 0);
+      const test = Number(inputs[2].value || 0);
+      const exam = Number(inputs[3].value || 0);
+      const total = ca + test + exam;
+      const grade = getGrade(total);
+
+      r.querySelector(".total").textContent = total;
+      r.querySelector(".grade").textContent = grade;
+
+      totalScore += total;
+    });
+
+    const average = totalScore / rows.length;
+    const overallGrade = getGrade(average);
+
+    document.getElementById("average").textContent = average.toFixed(2);
+    document.getElementById("overallGrade").textContent = overallGrade;
+    document.getElementById("resultSection").style.display = "block";
+  }
+
+  function getGrade(score) {
+    if (score >= 70) return "A";
+    if (score >= 60) return "B";
+    if (score >= 50) return "C";
+    if (score >= 45) return "D";
+    if (score >= 40) return "E";
+    return "F";
+  }
+</script>
+
+</body>
+</html>
