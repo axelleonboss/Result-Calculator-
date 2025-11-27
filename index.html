@@ -9,26 +9,123 @@
   <style>
     * { box-sizing: border-box; font-family: Arial, sans-serif; }
     body { margin:0; background:#000814; color:#f0c808; }
-    header { background:#001f3f; padding:15px; text-align:center; font-size:1.3em; }
+
+    header {
+      background:#001f3f;
+      padding:12px 15px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:relative;
+    }
+
     main { padding:15px; max-width:900px; margin:auto; }
-    .card { background:#111; padding:15px; border-radius:10px; margin-bottom:20px; box-shadow:0 0 12px #f0c80844; }
+
+    .card {
+      background:#111;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:20px;
+      box-shadow:0 0 12px #f0c80844;
+    }
+
     h2,h3 { margin-top:0; }
-    input { width:100%; padding:10px; margin:6px 0; border-radius:6px; border:none; background:#222; color:#f0c808; }
-    table { width:100%; border-collapse: collapse; margin-top:10px; font-size:14px; }
-    th,td { border:1px solid #f0c808; padding:6px; text-align:center; }
+
+    input {
+      width:100%;
+      padding:10px;
+      margin:6px 0;
+      border-radius:6px;
+      border:none;
+      background:#222;
+      color:#f0c808;
+    }
+
+    table {
+      width:100%;
+      border-collapse: collapse;
+      margin-top:10px;
+      font-size:14px;
+    }
+
+    th,td {
+      border:1px solid #f0c808;
+      padding:6px;
+      text-align:center;
+    }
+
     th { background:#001f3f; }
-    button { margin-top:10px; padding:10px 14px; border-radius:6px; border:none; font-weight:bold; cursor:pointer; background:#333; color:#f0c808; }
-    .primaryBtn { background:#f0c808; color:#001f3f; }
-    @media(max-width:600px){ table{ font-size:12px; } }
+
+    button {
+      margin-top:10px;
+      padding:10px 14px;
+      border-radius:6px;
+      border:none;
+      font-weight:bold;
+      cursor:pointer;
+      background:#333;
+      color:#f0c808;
+      width:100%;
+    }
+
+    .primaryBtn {
+      background:#f0c808;
+      color:#001f3f;
+    }
+
+    /* ✅ THREE DOTS MENU */
+    .menuBtn {
+      width:100%;
+      padding:10px;
+      background:#001f3f;
+      color:#f0c808;
+      border:none;
+      text-align:left;
+      cursor:pointer;
+    }
+
+    .menuBtn:hover {
+      background:#f0c808;
+      color:#001f3f;
+    }
+
+    #menuBox {
+      display:none;
+      position:absolute;
+      right:10px;
+      top:50px;
+      background:#001f3f;
+      border-radius:8px;
+      box-shadow:0 0 15px #f0c80866;
+      overflow:hidden;
+      min-width:170px;
+      z-index:1000;
+    }
+
+    @media(max-width:600px){
+      table{ font-size:12px; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ✅ HEADER WITH 3 DOT MENU -->
 <header>
-  <h1>📘 Smart School Result Calculator</h1>
+  <h1 style="margin:0;font-size:1.2em;">📘 Smart School Result</h1>
+
+  <div>
+    <button onclick="toggleMenu()" style="background:none;border:none;color:#f0c808;font-size:22px;cursor:pointer;">⋮</button>
+
+    <div id="menuBox">
+      <button class="menuBtn" onclick="goHome()">🏠 Home</button>
+      <button class="menuBtn" onclick="goLeaderboard()">🏆 Leaderboard</button>
+      <button class="menuBtn" onclick="openSettings()">⚙️ Settings</button>
+    </div>
+  </div>
 </header>
 
 <main>
+
   <!-- STUDENT INFORMATION -->
   <section class="card">
     <h2>Student Information</h2>
@@ -37,6 +134,7 @@
     <input type="text" id="studentTerm" placeholder="Term (e.g 1st Term)">
 
     <h3>Subjects & Scores</h3>
+
     <table>
       <thead>
         <tr>
@@ -52,7 +150,7 @@
     </table>
 
     <button onclick="addSubject()">+ Add Subject</button>
-    <button class="primaryBtn" onclick="calculateResult()">Calculate Result</button>
+    <button class="primaryBtn" onclick="calculateResult()">✅ Calculate Result</button>
   </section>
 
   <!-- RESULT SUMMARY -->
@@ -118,7 +216,29 @@
     if (score >= 40) return "E";
     return "F";
   }
+
+  /* ✅ THREE DOT MENU FUNCTIONS */
+  function toggleMenu() {
+    const menu = document.getElementById("menuBox");
+    menu.style.display = (menu.style.display === "block") ? "none" : "block";
+  }
+
+  function goHome() {
+    toggleMenu();
+    window.scrollTo(0, 0);
+  }
+
+  function goLeaderboard() {
+    toggleMenu();
+    window.location.href = "leaderboard.html";
+  }
+
+  function openSettings() {
+    toggleMenu();
+    alert("Settings page coming next ✅");
+  }
 </script>
 
 </body>
 </html>
+
