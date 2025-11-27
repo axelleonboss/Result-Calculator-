@@ -173,7 +173,7 @@
       <td><input type="number" min="0" max="50"></td>
       <td class="total"></td>
       <td class="grade"></td>
-    `;
+     `;
     tbody.appendChild(row);
   }
 
@@ -206,7 +206,9 @@
     document.getElementById("average").textContent = average.toFixed(2);
     document.getElementById("overallGrade").textContent = overallGrade;
     document.getElementById("resultSection").style.display = "block";
-  }
+    const studentName = document.getElementById("studentName").value;
+addToLeaderboard(studentName, average);
+}
 
   function getGrade(score) {
     if (score >= 70) return "A";
