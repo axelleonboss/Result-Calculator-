@@ -1,246 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Smart School Result Calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Results | Home</title>
 
-  <!-- ✅ YOUR GOLD + DEEP BLUE THEME -->
-  <style>
-    * { box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { margin:0; background:#000814; color:#f0c808; }
-
-    header {
-      background:#001f3f;
-      padding:12px 15px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:relative;
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #0a0f1a;
+        color: gold;
     }
 
-    main { padding:15px; max-width:900px; margin:auto; }
-
-    .card {
-      background:#111;
-      padding:15px;
-      border-radius:10px;
-      margin-bottom:20px;
-      box-shadow:0 0 12px #f0c80844;
+    /* NAVBAR */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        background: linear-gradient(180deg, #d4af37, #b89225);
+        color: #000;
+        box-shadow: 0 0 15px gold;
     }
 
-    h2,h3 { margin-top:0; }
-
-    input {
-      width:100%;
-      padding:10px;
-      margin:6px 0;
-      border-radius:6px;
-      border:none;
-      background:#222;
-      color:#f0c808;
+    .logo {
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: 1px;
     }
 
-    table {
-      width:100%;
-      border-collapse: collapse;
-      margin-top:10px;
-      font-size:14px;
+    .navbar nav a {
+        margin: 0 18px;
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .navbar nav a:hover {
+        color: white;
     }
 
-    th,td {
-      border:1px solid #f0c808;
-      padding:6px;
-      text-align:center;
+    /* HERO */
+    .hero {
+        text-align: center;
+        padding: 110px 20px;
+    }
+    .hero h1 {
+        font-size: 46px;
+        font-weight: 800;
+        color: gold;
+        text-shadow: 0 0 25px gold;
+    }
+    .cta-btn {
+        padding: 14px 32px;
+        background: gold;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.3s;
+    }
+    .cta-btn:hover {
+        background: #e0bf45;
+        box-shadow: 0 0 15px gold;
     }
 
-    th { background:#001f3f; }
-
-    button {
-      margin-top:10px;
-      padding:10px 14px;
-      border-radius:6px;
-      border:none;
-      font-weight:bold;
-      cursor:pointer;
-      background:#333;
-      color:#f0c808;
-      width:100%;
+    /* FEATURES */
+    .features {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 50px;
     }
 
-    .primaryBtn {
-      background:#f0c808;
-      color:#001f3f;
+    .feature-box {
+        width: 200px;
+        height: 140px;
+        background: linear-gradient(180deg, #d4af37, #b89225);
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: black;
+        font-weight: 800;
+        font-size: 20px;
+        box-shadow: 0 0 20px gold;
     }
 
-    /* ✅ THREE DOTS MENU */
-    .menuBtn {
-      width:100%;
-      padding:10px;
-      background:#001f3f;
-      color:#f0c808;
-      border:none;
-      text-align:left;
-      cursor:pointer;
+    /* TESTIMONIALS */
+    .testimonials {
+        text-align: center;
+        margin: 80px 0 40px 0;
+    }
+    .testimonials h2 {
+        font-size: 32px;
+        text-shadow: 0 0 12px gold;
+    }
+    .test-grid {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        margin-top: 25px;
+    }
+    .test-item {
+        width: 220px;
+        background: #111827;
+        padding: 22px;
+        border-radius: 12px;
+        border: 2px solid gold;
+        box-shadow: 0 0 15px gold;
+    }
+    .test-item p {
+        font-weight: 600;
+        font-size: 15px;
     }
 
-    .menuBtn:hover {
-      background:#f0c808;
-      color:#001f3f;
+    /* FOOTER */
+    .footer {
+        background: linear-gradient(180deg, #d4af37, #b89225);
+        padding: 25px;
+        text-align: center;
+        color: black;
+        font-weight: 700;
+        margin-top: 60px;
+        box-shadow: 0 0 12px gold;
     }
-
-    #menuBox {
-      display:none;
-      position:absolute;
-      right:10px;
-      top:50px;
-      background:#001f3f;
-      border-radius:8px;
-      box-shadow:0 0 15px #f0c80866;
-      overflow:hidden;
-      min-width:170px;
-      z-index:1000;
-    }
-
-    @media(max-width:600px){
-      table{ font-size:12px; }
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
-<!-- ✅ HEADER WITH 3 DOT MENU -->
-<header>
-  <h1 style="margin:0;font-size:1.2em;">📘 Smart School Result</h1>
-
-  <div>
-    <button onclick="toggleMenu()" style="background:none;border:none;color:#f0c808;font-size:22px;cursor:pointer;">⋮</button>
-
-    <div id="menuBox">
-      <button class="menuBtn" onclick="goHome()">🏠 Home</button>
-      <button class="menuBtn" onclick="goLeaderboard()">🏆 Leaderboard</button>
-      <button class="menuBtn" onclick="openSettings()">⚙️ Settings</button>
-    </div>
-  </div>
+<header class="navbar">
+    <div class="logo">AURORA RESULTS</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="#">About</a>
+        <a href="#">Portfolio</a>
+    </nav>
 </header>
 
-<main>
+<section class="hero">
+    <h1>GOLDEN OPPORTUNITIES AWAIT</h1>
+    <button class="cta-btn">Explore</button>
+</section>
 
-  <!-- STUDENT INFORMATION -->
-  <section class="card">
-    <h2>Student Information</h2>
-    <input type="text" id="studentName" placeholder="Student Name">
-    <input type="text" id="studentClass" placeholder="Class">
-    <input type="text" id="studentTerm" placeholder="Term (e.g 1st Term)">
+<section class="features">
+    <div class="feature-box">STRATEGY</div>
+    <div class="feature-box">INNOVATION</div>
+    <div class="feature-box">GROWTH</div>
+</section>
 
-    <h3>Subjects & Scores</h3>
+<section class="testimonials">
+    <h2>TESTIMONIALS</h2>
+    <div class="test-grid">
+        <div class="test-item"><p>“Premium Quality Platform.”</p></div>
+        <div class="test-item"><p>“User-friendly & Professional.”</p></div>
+        <div class="test-item"><p>“Truly Outstanding Work!”</p></div>
+    </div>
+</section>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Subject</th>
-          <th>CA (20)</th>
-          <th>Test (30)</th>
-          <th>Exam (50)</th>
-          <th>Total</th>
-          <th>Grade</th>
-        </tr>
-      </thead>
-      <tbody id="subjectTable"></tbody>
-    </table>
-
-    <button onclick="addSubject()">+ Add Subject</button>
-    <button class="primaryBtn" onclick="calculateResult()">✅ Calculate Result</button>
-  </section>
-
-  <!-- RESULT SUMMARY -->
-  <section class="card" id="resultSection" style="display:none;">
-    <h2>Result Summary</h2>
-    <p><b>Average:</b> <span id="average"></span></p>
-    <p><b>Overall Grade:</b> <span id="overallGrade"></span></p>
-  </section>
-</main>
-
-<!-- ✅ ALL JAVASCRIPT HERE -->
-<script>
-  function addSubject() {
-    const tbody = document.getElementById("subjectTable");
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td><input type="text" placeholder="Subject"></td>
-      <td><input type="number" min="0" max="20"></td>
-      <td><input type="number" min="0" max="30"></td>
-      <td><input type="number" min="0" max="50"></td>
-      <td class="total"></td>
-      <td class="grade"></td>
-     `;
-    tbody.appendChild(row);
-  }
-
-  function calculateResult() {
-    const rows = document.querySelectorAll("#subjectTable tr");
-    if (rows.length === 0) {
-      alert("Add at least one subject!");
-      return;
-    }
-
-    let totalScore = 0;
-
-    rows.forEach(r => {
-      const inputs = r.querySelectorAll("input");
-      const ca = Number(inputs[1].value || 0);
-      const test = Number(inputs[2].value || 0);
-      const exam = Number(inputs[3].value || 0);
-      const total = ca + test + exam;
-      const grade = getGrade(total);
-
-      r.querySelector(".total").textContent = total;
-      r.querySelector(".grade").textContent = grade;
-
-      totalScore += total;
-    });
-
-    const average = totalScore / rows.length;
-    const overallGrade = getGrade(average);
-
-    document.getElementById("average").textContent = average.toFixed(2);
-    document.getElementById("overallGrade").textContent = overallGrade;
-    document.getElementById("resultSection").style.display = "block";
-    const studentName = document.getElementById("studentName").value;
-addToLeaderboard(studentName, average);
-}
-
-  function getGrade(score) {
-    if (score >= 70) return "A";
-    if (score >= 60) return "B";
-    if (score >= 50) return "C";
-    if (score >= 45) return "D";
-    if (score >= 40) return "E";
-    return "F";
-  }
-
-  /* ✅ THREE DOT MENU FUNCTIONS */
-  function toggleMenu() {
-    const menu = document.getElementById("menuBox");
-    menu.style.display = (menu.style.display === "block") ? "none" : "block";
-  }
-
-  function goHome() {
-    toggleMenu();
-    window.scrollTo(0, 0);
-  }
-
-  function goLeaderboard() {
-    toggleMenu();
-    window.location.href = "leaderboard.html";
-  }
-
-  function openSettings() {
-    toggleMenu();
-    alert("Settings page coming next ✅");
-  }
-</script>
+<footer class="footer">
+    © 2024 Aurora Digital. All Rights Reserved.
+</footer>
 
 </body>
 </html>
-
