@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Results | Calculator</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background: #0a0f1a;
+        color: gold;
+    }
+
+    /* NAVBAR */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 40px;
+        background: linear-gradient(180deg, #d4af37, #b89225);
+        color: #000;
+        box-shadow: 0 0 15px gold;
+    }
+    .logo { font-size: 26px; font-weight: 900; }
+
+    .navbar nav a {
+        margin: 0 18px;
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .navbar nav a:hover {
+        color: white;
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+        max-width: 850px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #111827;
+        border-radius: 15px;
+        border: 2px solid gold;
+        box-shadow: 0 0 20px gold;
+    }
+    h2 {
+        text-align: center;
+        font-size: 30px;
+        color: gold;
+        text-shadow: 0 0 14px gold;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 8px;
+        margin-bottom: 18px;
+        border: 1px solid gold;
+        background: #0a0f1a;
+        color: gold;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        color: gold;
+    }
+    th, td {
+        border: 1px solid gold;
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background: #d4af37;
+        color: black;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .btn {
+        background: gold;
+        padding: 12px 26px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    .btn:hover {
+        background: #e0bf45;
+        box-shadow: 0 0 14px gold;
+    }
+
+    .result-card {
+        background: #0a0f1a;
+        border: 2px solid gold;
+        padding: 25px;
+        border-radius: 12px;
+        margin-top: 30px;
+        box-shadow: 0 0 18px gold;
+    }
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">AURORA RESULTS</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Calculator</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Student Result Calculator</h2>
+
+    <label>Student Name</label>
+    <input type="text" id="studentName">
+
+    <label>Class</label>
+    <input type="text" id="studentClass">
+
+    <label>Term / Semester</label>
+    <input type="text" id="studentTerm">
+
+    <table id="subjectTable">
+        <tr>
+            <th>Subject</th>
+            <th>Homework (20)</th>
+            <th>Test (30)</th>
+            <th>Exam (50)</th>
+            <th>Total</th>
+        </tr>
+    </table>
+
+    <button class="btn" onclick="addSubject()">+ Add Subject</button>
+    <button class="btn" onclick="calculateResults()">Calculate</button>
+
+    <div id="output"></div>
+</div>
+
+<script>
+function addSubject() {
+    let table = document.getElementById("subjectTable");
+    let row = table.insertRow(-1);
+
+    row.innerHTML = `
+        <td><input type="text" class="subject"></td>
+        <td><input type="number" class="hw" max="20" min="0"></td>
+        <td><input type="number" class="test" max="30" min="0"></td>
+        <td><input type="number" class="exam" max="50" min="0"></td>
+        <td class="totalCell">0</td>
+    `;
+}
+
+function calculateResults() {
+    let subjects = document.getElementsByClassName("subject");
+    let hw = document.getElementsByClassName("hw");
+    let test = document.getElementsByClassName("test");
+    let exam = document.getElementsByClassName("exam");
+    let totalCell = document.getElementsByClassName("totalCell");
+
+    let output = `
+        <div class="result-card">
+        <h3>Report Summary</h3>
+        <p><strong>Name:</strong> ${studentName.value}</p>
+        <p><strong>Class:</strong> ${studentClass.value}</p>
+        <p><strong>Term:</strong> ${studentTerm.value}</p>
+        <hr>
+    `;
+
+    for (let i = 0; i < subjects.length; i++) {
+        let sum =
+            Number(hw[i].value) +
+            Number(test[i].value) +
+            Number(exam[i].value);
+
+        totalCell[i].textContent = sum;
+
+        let msg = "";
+        if (sum < 40) msg = "Very Low — You can do better!";
+        else if (sum < 70) msg = "Good — Keep pushing!";
+        else msg = "Excellent — Keep it up!";
+
+        output += `
+            <p><strong>${subjects[i].value}:</strong> ${sum} — ${msg}</p>
+        `;
+    }
+
+    output += `</div>`;
+
+    document.getElementById("output").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
